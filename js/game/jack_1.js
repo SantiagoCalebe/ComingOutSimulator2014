@@ -1,316 +1,292 @@
-// PLOT BEATS:
-// 1) In medias res talking about Inception
-// 2) Thanks for movie, we still up to stay over tomorrow night?
-// 3) You need to stop hiding... // Can't even CALL.
-// Weave in previous bits of convo pieces.
-// Also, FULL CIRCLE with the Inception!
-// OKAY, TOO CONVOLUTED, CUT OUT THE DIFFERENT FAMILIES & TYPO parts.
+function Start_Jack_1() {
+	Show("background", "bedroom");
+	Show("us", "bedroom_us_1");
+	Show("light", "bedroom_light_1", { x: 0, y: 159 });
 
-function Start_Jack_1(){
-	
-	/////// SET UP SCENE ////////
+	PlaySound("bg", "bedroom_1", { loop: -1 });
 
-	Show("background","bedroom");
-	Show("us","bedroom_us_1");
-	Show("light","bedroom_light_1",{x:0,y:159});
-
-	PlaySound("bg","bedroom_1",{loop:-1});
-
-	/////////////////////////////
-
-	j("And when he simply announces,");
-	j("'I bought the airline.'");
-	j("That was positively priceless!");
-	n("Is that what he said?");
-	n("I missed out what everyone in the theater was laughing about.");
-	j("You either need subtitles, or to clean your ears more often.");
-	j("So how did you interpret the ending?");
+	j("E quando ele simplesmente anuncia,");
+	j("'Eu comprei a companhia aérea.'");
+	j("Isso foi absolutamente impagável!");
+	n("Foi isso que ele disse?");
+	n("Eu perdi o que todo mundo no cinema estava rindo.");
+	j("Você precisa de legendas ou limpar mais os ouvidos.");
+	j("Como você interpretou o final?");
 
 	Choose({
-		"It was totally all a dream.": Inception_Dream,
-		"He's got to be back in the real world!": Inception_Awake,
-		"Doesn't matter. Cobbs just finally let go.": Inception_Neither
+		"Foi tudo um sonho.": Inception_Dream,
+		"Ele voltou para o mundo real!": Inception_Awake,
+		"Não importa. Cobbs finalmente deixou pra lá.": Inception_Neither,
 	});
-
 }
 
-function Inception_Dream(message){
-
+function Inception_Dream(message) {
 	$.inception_answer = "dream";
 
 	n(message);
-	j("So his entire redemption story was a lie?");
-	n("A big fat lie.");
-	j("You're a bit of a downer, aren't you?");
+	j("Então toda a história de redenção dele foi uma mentira?");
+	n("Uma grande mentira.");
+	j("Você é meio pessimista, não é?");
 
 	Choose({
-		"Yup, I'm just a sad sack of sadness.": Sadsack,
-		"Sometimes... but not when I'm with you.": function(message){
+		"Sim, sou só um saco de tristeza.": Sadsack,
+		"Às vezes... mas não quando estou com você.": function (message) {
 			$.im_a_poet = true;
 
 			n(message);
-			j("Ah Nicky, you amateur poet.");
-			n("Get me some french breads and wine,");
-			n("Coz that's got to be the cheesiest thing I've ever said.");
-			j("Apologize for nothing.");
-			n("Anywho...");
+			j("Ah Nicky, seu poeta amador.");
+			n("Me arranja uns pães franceses e vinho,");
+			n("Porque essa foi a coisa mais brega que já disse.");
+			j("Não peça desculpas por nada.");
+			n("Enfim...");
 			Thanks();
 		},
-		"I'm just a realist.": function(message){
+		"Sou apenas realista.": function (message) {
 			$.hippies = true;
 
 			n(message);
-			j("You need more positive thinking in your life.");
-			n("And YOU need to stop being such a new-age hippie.");
-			n("Anywho...");
+			j("Você precisa de mais pensamento positivo na sua vida.");
+			n("E VOCÊ precisa parar de ser tão hippie.");
+			n("Enfim...");
 			Thanks();
-		}
+		},
 	});
-
 }
-function Inception_Awake(message){
-
+function Inception_Awake(message) {
 	$.inception_answer = "awake";
 	$.im_a_poet = true;
 
 	n(message);
-	n("Otherwise, the whole movie would've all just been a lie.");
-	n("What's the point of living a lie?");
-	j("Ah Nicky, you amateur poet.");
-	j("I take it you liked the film?");
+	n("Senão, o filme todo teria sido uma mentira.");
+	n("Qual o sentido de viver uma mentira?");
+	j("Ah Nicky, seu poeta amador.");
+	j("Imagino que você gostou do filme?");
 
 	Choose({
-		"Aw yiss. Yes I did.": function(message){
+		"Simmm. Eu gostei sim.": function (message) {
 			n(message);
 			Thanks();
 		},
-		"Mehhh, it was a tad confusing at times.": function(message){
+		"Ahhh, foi meio confuso às vezes.": function (message) {
 			n(message);
-			j("I believe that was the purpose.");
-			n("Mission accomplished, then.");
-			n("Anywho...");
+			j("Acho que esse era o objetivo.");
+			n("Missão cumprida, então.");
+			n("Enfim...");
 			Thanks();
 		},
-		"BWOOOOOOOOOOONG": function(message){
+		BWOOOOOOOOOOONG: function (message) {
 			n(message);
-			j("I'll interpret that as a yes.");
+			j("Vou interpretar isso como um sim.");
 			Thanks();
-		}
+		},
 	});
-
 }
-function Inception_Neither(message){
-
+function Inception_Neither(message) {
 	$.inception_answer = "neither";
 
 	n(message);
-	j("Oh?");
-	n("He didn't even bother looking to see if the top fell!");
-	n("Lies, truths, or half-truths... Cobbs no longer cares.");
-	n("He's finally happy, and that's all that matters.");
-	j("You either are being quite poetic, or quite depressing.");
+	j("Ah é?");
+	n("Ele nem se preocupou em ver se o pião caiu!");
+	n("Mentiras, verdades, ou meias-verdades... Cobbs não liga mais.");
+	n("Ele finalmente está feliz, e isso é o que importa.");
+	j("Você está sendo poético ou deprimente.");
 
 	Choose({
-		"I'm a poet, and I didn't even know it.": function(message){
-
+		"Sou poeta e nem sabia.": function (message) {
 			$.im_a_poet = true;
 
-			n("I'm a poet,");
-			n("and I wasn't even aware of the fact.");
-			j("You're a lyrical miracle, the evidence is empircal.");
-			n("That's hysterical.");
-			n("Anywho...");
+			n("Sou poeta,");
+			n("e nem estava ciente disso.");
+			j("Você é um milagre lírico, a evidência é empírica.");
+			n("Isso é hilário.");
+			n("Enfim...");
 			Thanks();
-
 		},
-		"Nah, I'm just a sad sack of sadness.": Sadsack,
-		"Or both.":function(message){
-
+		"Não, sou só um saco de tristeza.": Sadsack,
+		"Ou os dois.": function (message) {
 			$.hippies = true;
 			$.im_a_poet = true;
 
 			n(message);
-			n("POETRY IS PAIN. ART IS SUFFERING.");
-			j("You sound like my mother.");
-			n("Your parents are <i>such</i> new-age hippies.");
-			n("Anywho...");
+			n("POESIA É DOR. ARTE É SOFRIMENTO.");
+			j("Você soa como minha mãe.");
+			n("Seus pais são <i>tão</i> hippies.");
+			n("Enfim...");
 			Thanks();
-
-		}
+		},
 	});
-
 }
 
-function Sadsack(message){
-	
+function Sadsack(message) {
 	$.sadsack = true;
 
 	n(message);
-	j("Aw, sorry to hear that.");
-	j("I hope our little date at the movies cheered you up?");
-	n("Sure did!");
+	j("Poxa, sinto muito por isso.");
+	j("Espero que nosso encontro no cinema tenha te animado.");
+	n("Com certeza!");
 	Thanks();
-
 }
 
-function Thanks(){
-	
-	n("So yeah! Thanks for taking me out to watch Inception!");
-	j("My pleasure, Nicky.");
-	j("You should parody Inception in that odd web game of yours!");
-	n("Mmm, maybe maybe.");
-	n("Let's meet again tomorrow evening!");
+function Thanks() {
+	n("Então é isso! Obrigado por me levar para ver A Origem!");
+	j("O prazer é meu, Nicky.");
+	j("Você devia fazer uma paródia de A Origem naquele seu jogo estranho!");
+	n("Hmm, talvez, talvez.");
+	n("Vamos nos encontrar de novo amanhã à noite!");
 
-	j("Although...");
-	n("Hope I can convince the parents to let me out overnight.");
+	j("Embora...");
+	n("Espero conseguir convencer meus pais a me deixar dormir fora.");
 
-	j("I wish you didn't tell your mom and dad we were just studying, when we were actually at the cinema.");
-	n("I'll pretend we'll be cramming for the midterms all nigh-- huh?");
+	j(
+		"Queria que você não tivesse dito para sua mãe e seu pai que estávamos só estudando, quando na verdade estávamos no cinema."
+	);
+	n("Vou fingir que vamos estudar para as provas a noite toda-- hã?");
 
-	j("You can't keep hiding like this.");
+	j("Você não pode continuar se escondendo assim.");
 	n("Jack...");
 
 	Choose({
-		"They can never, ever know.": function(message){
-			$.coming_out_readiness="no";
+		"Eles nunca podem saber.": function (message) {
+			$.coming_out_readiness = "no";
 			n(message);
-			j("Really, never?");
+			j("Sério, nunca?");
 			Hiding();
 		},
-		"I wish I could tell them, too.": function(message){
-			$.coming_out_readiness="yes";
+		"Eu queria poder contar também.": function (message) {
+			$.coming_out_readiness = "yes";
 			n(message);
 			Hiding();
 		},
-		"I'm not ready to tell them yet.": function(message){
-			$.coming_out_readiness="maybe";
+		"Ainda não estou pronto para contar.": function (message) {
+			$.coming_out_readiness = "maybe";
 			n(message);
-			j("I can help you be ready.");
+			j("Posso te ajudar a estar pronto.");
 			Hiding();
-		}
+		},
 	});
-
 }
 
-function Hiding(){
+function Hiding() {
+	j("Nicky, se esconder assim está acabando com você.");
 
-	j("Nicky, hiding like this is eating away at your soul.");
-
-	if($.inception_answer=="awake"){
-		j("Like you said, what's the point of living a lie?");
+	if ($.inception_answer == "awake") {
+		j("Como você disse, qual o sentido de viver uma mentira?");
 	}
-	if($.inception_answer=="dream"){
-		j("It's... how'd you put it... 'a big fat lie'?");
-	}
-
-	if($.sadsack){
-		j("When you said just now you're a sadsack?");
-		j("I know you weren't joking. Not really.");
+	if ($.inception_answer == "dream") {
+		j("É... como você disse... 'uma grande mentira'?");
 	}
 
-	n("Jack, come on.");
-	j("I came out to my parents last year.");
-	if($.hippies){
-		n("That's NOT a fair comparison.");
-		n("LIKE I SAID, you and your parents are a bunch of new-age hippies.");
-		n("When I'm at your place, I can't tell if all the smoke is incense or marijuana.");
-		j("Hey! We only smoke weed every other day!");
+	if ($.sadsack) {
+		j("Quando você disse agora há pouco que é um saco de tristeza?");
+		j("Eu sei que não estava brincando. Não de verdade.");
+	}
+
+	n("Jack, qual é.");
+	j("Eu me assumi para meus pais no ano passado.");
+	if ($.hippies) {
+		n("Isso NÃO é uma comparação justa.");
+		n("COMO EU DISSE, você e seus pais são um bando de hippies.");
+		n(
+			"Quando estou na sua casa, não sei se toda aquela fumaça é incenso ou maconha."
+		);
+		j("Ei! Só fumamos maconha dia sim, dia não!");
 		n("Heh.");
-		j("The point is, my parents supported my coming out.");
-	}else{
-		j("And they were very supportive!");
+		j("O ponto é, meus pais apoiaram quando me assumi.");
+	} else {
+		j("E eles foram muito compreensivos!");
 	}
 
-	j("You're in Canada now. A lot of people here are LGBT friendly.");
-	j("How do you know your parents won't be supportive of you, too?");
+	j("Você está no Canadá agora. Muitas pessoas aqui apoiam LGBT.");
+	j("Como você sabe que seus pais não vão te apoiar também?");
 
 	Choose({
-		"Asian parents are usually very homophobic.": Hiding_2,
-		"I don't know... I guess I haven't tried...": Hiding_2,
-		"They don't support anything but STUDYING.": Hiding_2
+		"Pais asiáticos geralmente são muito homofóbicos.": Hiding_2,
+		"Eu não sei... Acho que nunca tentei...": Hiding_2,
+		"Eles não apoiam nada além de ESTUDAR.": Hiding_2,
 	});
-
 }
 
-function Hiding_2(message){
-	
+function Hiding_2(message) {
 	n(message);
 
-	if($.coming_out_readiness=="no"){
-		n("Again... They can never, ever know.");
+	if ($.coming_out_readiness == "no") {
+		n("De novo... Eles nunca podem saber.");
 	}
 
-	j("You have trust issues.");
-	j("You're even texting me instead of calling...");
-	j("...because you think your parents might listen in.");
+	j("Você tem problemas de confiança.");
+	j("Você até me manda mensagem em vez de ligar...");
+	j("...porque acha que seus pais podem ouvir.");
 
-	n("They would!");
+	n("Eles ouviriam!");
 
-	j("This mode of communication.");
-	j("It's imprecise, impersonal, impossible to truly connect.");
+	j("Esse modo de comunicação.");
+	j("É impreciso, impessoal, impossível de se conectar de verdade.");
 
-	if($.im_a_poet){
-		n("Heh. You're an amateur poet like me, apparently.");
-	}else{
-		n("It's not too bad...");
+	if ($.im_a_poet) {
+		n("Heh. Você é um poeta amador como eu, pelo visto.");
+	} else {
+		n("Não é tão ruim assim...");
 	}
 
-	if($.coming_out_readiness=="yes"){
-		j("You yourself just said you wish you could tell them.");
-		j("Tell them.");
-	}else{
+	if ($.coming_out_readiness == "yes") {
+		j("Você mesmo disse que queria poder contar para eles.");
+		j("Conte para eles.");
+	} else {
 		j("Nicky.");
 	}
-	j("Tell them about us. Tonight.");
+	j("Conte sobre nós. Hoje à noite.");
 
 	Choose({
-		"Tonight?! Heck no.": Hiding_3,
-		"Sigh... I'll try my best.": Hiding_3,
-		"I'll just carefully hint at it.": Hiding_3
+		"Hoje à noite?! Nem pensar.": Hiding_3,
+		"Suspiro... Vou tentar.": Hiding_3,
+		"Vou só dar uma dica sutil.": Hiding_3,
 	});
-
 }
 
-function Hiding_3(message){
-	
+function Hiding_3(message) {
 	n(message);
 	j(". . .");
-	n("I don't want to freak them out too much.");
-	n("Still need to convince them to let me stay at your place tomorrow night.");
-	n("I'll tell 'em I'm studying with you again.");
+	n("Não quero assustá-los demais.");
+	n("Ainda preciso convencê-los a me deixar dormir na sua casa amanhã.");
+	n("Vou dizer que vou estudar com você de novo.");
 	j(". . .");
-	n("It's dinnertime. I'm heading downstairs now.");
+	n("Hora do jantar. Estou descendo agora.");
 
-	j("Hey... I agree.");
-	n("Huh?");
-	j("With your thoughts on the movie ending, that is.");
-	switch($.inception_answer){
-		case "dream": j("I think Cobbs was still dreaming, living a lie."); break;
-		case "awake": j("I think Cobbs reconnected with his real family, in the real world."); break;
-		case "neither": j("I think it doesn't matter, as long as Cobbs is happy."); break;
+	j("Ei... Concordo.");
+	n("Hã?");
+	j("Com sua opinião sobre o final do filme, quero dizer.");
+	switch ($.inception_answer) {
+		case "dream":
+			j("Acho que Cobbs ainda estava sonhando, vivendo uma mentira.");
+			break;
+		case "awake":
+			j("Acho que Cobbs se reconectou com a família de verdade, no mundo real.");
+			break;
+		case "neither":
+			j("Acho que não importa, desde que Cobbs esteja feliz.");
+			break;
 	}
-	n("Oh.");
-	j("Okay.");
-	if($.coming_out_readiness=="maybe"){
-		j("Hope you changed your mind about being 'not ready to tell them yet'.");
+	n("Ah.");
+	j("Certo.");
+	if ($.coming_out_readiness == "maybe") {
+		j("Espero que tenha mudado de ideia sobre 'não estar pronto para contar ainda'.");
 	}
-	j("Good luck. Text me in an hour.");
+	j("Boa sorte. Me manda mensagem em uma hora.");
 
 	var insult = "";
-	if($.hippies) insult+=" new-age hippie";
-	if($.im_a_poet) insult+=" amateur poet";
-	n("See ya.");
-	if(insult!=""){
-		n("You"+insult+".");
-	}else{
-		n("You goof.");
+	if ($.hippies) insult += " hippie";
+	if ($.im_a_poet) insult += " poeta amador";
+	n("Até mais.");
+	if (insult != "") {
+		n("Você" + insult + ".");
+	} else {
+		n("Seu bobo.");
 	}
 
 	Jack_1_End();
-
 }
 
-function Jack_1_End(){
+function Jack_1_End() {
 	Clear();
 	Start_Dinner_1();
 }

@@ -1,302 +1,300 @@
-// Denounement
-// j("That mode of communication?"); j("It's imprecise, impersonal, impossible to truly connect.");
+function Start_Jack_2() {
+	Show("background", "bedroom_2");
+	Show("us", "bedroom_us_2");
+	Show("light", "bedroom_light_2", { x: 0, y: 159 });
 
-// Recap what happened.
-// Who's to blame.
-// All coming towards --> Break up now, or try to stay together?
+	PlaySound("bg", "bedroom_2", { loop: -1, volume: 0.5 });
 
-// Love you, X. Love you, Y.
-// IMMEDIATELY CUT TO NOW - WE BROKE UP.
-
-function Start_Jack_2(){
-
-	/////// SET UP SCENE ////////
-
-	Show("background","bedroom_2");
-	Show("us","bedroom_us_2");
-	Show("light","bedroom_light_2",{x:0,y:159});
-
-	PlaySound("bg","bedroom_2",{loop:-1,volume:0.5});
-
-	if($.punched){
-		Show("punch","bedroom_punch",{x:256,y:404});
+	if ($.punched) {
+		Show("punch", "bedroom_punch", { x: 256, y: 404 });
 	}
 
-	/////////////////////////////
-
-	n("Hey Jack.");
-	if($.sadsack){
-		j("Hello, Nicky darling. Still a sad sack of sadness?");
-	}else{
-		j("Hello, Nicky darling.");
+	n("Oi Jack.");
+	if ($.sadsack) {
+		j("Olá, Nicky querido. Ainda um saco de tristeza?");
+	} else {
+		j("Olá, Nicky querido.");
 	}
-	j("How was coming out to your parents? Did I tell you so, or did I tell you so?");
+	j(
+		"Como foi se assumir para seus pais? Eu te avisei, não avisei?"
+	);
 
 	Choose({
-		"Jack... we messed up big time, Jack.": function(message){
+		"Jack... a gente fez besteira, Jack.": function (message) {
 			n(message);
-			j("No... no, no.");
-			j("You're kidding me, right? What happened?");
+			j("Não... não, não.");
+			j("Você está brincando, né? O que aconteceu?");
 			What_Happened();
 		},
-		"Things could have been worse.": function(message){
+		"Poderia ter sido pior.": function (message) {
 			n(message);
-			j("Oh. Oh no.");
-			j("I didn't expect that they'd... what... what happened?");
+			j("Ah. Ah não.");
+			j("Eu não esperava que eles... o que... o que aconteceu?");
 			What_Happened();
 		},
-		"Shut up, Jack.": function(message){
+		"Cala a boca, Jack.": function (message) {
 			n(message);
-			j("Ha, yes, I knew I was right!");
-			n("No. Jack, we can't see each other ever again.");
-			j("Wait.");
-			j("No, no, no. You're kidding me, right? What happened?");
+			j("Ha, sim, eu sabia que estava certo!");
+			n("Não. Jack, a gente não pode mais se ver.");
+			j("Espera.");
+			j("Não, não, não. Você está brincando, né? O que aconteceu?");
 			What_Happened();
-		}
+		},
 	});
-
 }
 
-function What_Happened(){
-
-	if($.punched){
+function What_Happened() {
+	if ($.punched) {
 		Choose({
-			"My dad punched me in the face.": What_Happened_Abuse,
-			"They're making me change schools.": What_Happened_School,
-			"They read all our texts.": What_Happened_Texts
+			"Meu pai me deu um soco na cara.": What_Happened_Abuse,
+			"Eles vão me fazer mudar de escola.": What_Happened_School,
+			"Eles leram todas as nossas mensagens.": What_Happened_Texts,
 		});
-	}else if($.father_oblivious==false){
+	} else if ($.father_oblivious == false) {
 		Choose({
-			"My parents got verbally violent with each other.": What_Happened_Abuse,
-			"They're making me change schools.": What_Happened_School,
-			"They read all our texts.": What_Happened_Texts
+			"Meus pais ficaram verbalmente violentos um com o outro.": What_Happened_Abuse,
+			"Eles vão me fazer mudar de escola.": What_Happened_School,
+			"Eles leram todas as nossas mensagens.": What_Happened_Texts,
 		});
-	}else{
-		n("Well, my dad's oblivious. For now. But my mom...");
-		if($.changing_schools){
+	} else {
+		n("Bem, meu pai está alheio. Por enquanto. Mas minha mãe...");
+		if ($.changing_schools) {
 			Choose({
-				"She's making me change schools.": What_Happened_School,
-				"She's setting me up with a girl I've never met.": What_Happened_Girl,
-				"She read all our texts.": What_Happened_Texts,
+				"Ela vai me fazer mudar de escola.": What_Happened_School,
+				"Ela está tentando me arranjar com uma garota que nunca conheci.": What_Happened_Girl,
+				"Ela leu todas as nossas mensagens.": What_Happened_Texts,
 			});
-		}else{
+		} else {
 			Choose({
-				"She got a tutor to kill all my after-school hours.": What_Happened_School,
-				"She's setting me up with a girl I've never met.": What_Happened_Girl,
-				"She read all our texts.": What_Happened_Texts,
+				"Ela arranjou um tutor para ocupar todas as minhas horas livres.":
+					What_Happened_School,
+				"Ela está tentando me arranjar com uma garota que nunca conheci.": What_Happened_Girl,
+				"Ela leu todas as nossas mensagens.": What_Happened_Texts,
 			});
 		}
 	}
-
 }
 
-function What_Happened_Abuse(message){
+function What_Happened_Abuse(message) {
 	$.told_jack = "abuse";
 
 	n(message);
-	j("Oh my god!");
-	j("Nicky, you need to call Child Protective Services.");
-	n("What?! No. That's way too much.");
-	j("Just... okay, but at least promise me you'll visit the school counselor tomorrow?");
-	n("Fine.");
+	j("Meu Deus!");
+	j("Nicky, você precisa ligar para o Conselho Tutelar.");
+	n("O quê?! Não. Isso é demais.");
+	j(
+		"Só... ok, mas pelo menos promete que vai falar com o orientador da escola amanhã?"
+	);
+	n("Tá bom.");
 	j(". . .");
 	What_Happened_2();
 }
-function What_Happened_School(message){
+function What_Happened_School(message) {
 	$.told_jack = "school";
 
 	n(message);
-	j("No!");
-	j("Why?! Why are they doing that?");
-	n("Because 'Jack and the school is a bad influence on me', or something. They just want to break us up.");
-	j("That's horrible...");
+	j("Não!");
+	j("Por quê?! Por que eles estão fazendo isso?");
+	n(
+		"Porque 'Jack e a escola são uma má influência para mim', ou algo assim. Eles só querem separar a gente."
+	);
+	j("Isso é horrível...");
 	What_Happened_2();
 }
-function What_Happened_Girl(message){
+function What_Happened_Girl(message) {
 	$.told_jack = "girl";
 
 	n(message);
-	j("Ew, seriously?");
-	n("Her name's Claire Something. She'll also be tutoring me.");
-	j("Ew squared, they're also hooking you up with your own tutor?");
-	n("Yup."); 
+	j("Eca, sério?");
+	n("O nome dela é Claire Alguma-coisa. Ela também vai ser minha tutora.");
+	j("Eca em dobro, estão te arranjando com sua própria tutora?");
+	n("Pois é.");
 	What_Happened_2();
 }
-function What_Happened_Texts(message){
+function What_Happened_Texts(message) {
 	$.told_jack = "texts";
 
 	n(message);
-	j("That is just plain rude!");
-	j("Wait, what will you do with these texts right now, then?");
-	n("I can hide them better. My parents aren't exactly a tech-savvy bunch.");
-	j("...just plain rude.");
+	j("Isso é simplesmente rude!");
+	j("Espera, o que você vai fazer com essas mensagens agora?");
+	n("Vou esconder melhor. Meus pais não são exatamente experts em tecnologia.");
+	j("...simplesmente rude.");
 	What_Happened_2();
 }
 
-function What_Happened_2(){
-	
-	n("And that's just one out of three crappy things that happened.");
+function What_Happened_2() {
+	n("E isso é só uma das três coisas horríveis que aconteceram.");
 	j("Nicky...");
-	j("I am truly, truly apologetic.");
-	j("This is my fault. I urged you to come out to your parents. Stupid me.");
+	j("Eu estou realmente, realmente arrependido.");
+	j("Isso é culpa minha. Fui eu que te incentivei a se assumir para seus pais. Que burrice minha.");
 
 	Choose({
-		"Yeah, stupid you.": function(message){
+		"É, burrice sua.": function (message) {
 			$.blame = "jack";
 
 			n(message);
-			n("If you hadn't been all so 'ohhhh Nicky coming out is good for the soul' and shit, this never would have...");
+			n(
+				"Se você não tivesse ficado com esse papo de 'ahhh Nicky se assumir faz bem pra alma' e tal, nada disso teria..."
+			);
 			j(". . .");
-			n("I'm sorry. You're the only person I can lash out on.");
-			n("Isn't that just fucked up?");
+			n("Desculpa. Você é a única pessoa em quem posso descontar.");
+			n("Não é horrível isso?");
 			What_Now();
 		},
-		"No, it's THEIR fault.": function(message){
+		"Não, a culpa é DELES.": function (message) {
 			$.blame = "parents";
 
 			n(message);
-			n("They already read our texts. Anything I would have said after that couldn't change what happened.");
-			if($.told_jack!="texts"){
-				j("What! You didn't tell me they also read your texts!");
-			}else{
-				j("And they're stuck in their old-fashioned moralities, the poor things.");
-				n("I wouldn't go so far as to pity them.");
+			n(
+				"Eles já tinham lido nossas mensagens. Nada do que eu dissesse depois disso mudaria o que aconteceu."
+			);
+			if ($.told_jack != "texts") {
+				j("O quê! Você não me disse que eles também leram suas mensagens!");
+			} else {
+				j(
+					"E eles estão presos nas moralidades antiquadas deles, coitados."
+				);
+				n("Eu não chegaria a ter pena deles.");
 			}
 			What_Now();
 		},
-		"No, this is all my fault.": function(message){
+		"Não, a culpa é toda minha.": function (message) {
 			$.blame = "nicky";
 
 			n(message);
-			n("I should have passcode-locked my phone, or use encrypted text, or hid it better...");
-			if($.told_jack!="texts"){
-				j("They read your texts, too?...");
+			n(
+				"Eu devia ter colocado senha no celular, ou usado mensagem criptografada, ou escondido melhor..."
+			);
+			if ($.told_jack != "texts") {
+				j("Eles também leram suas mensagens?...");
 			}
-			j("Nicky, you had every right to trust them, they're your parents. They abused that trust. It's not your fault.");
-			n("Yeah...");
+			j(
+				"Nicky, você tinha todo direito de confiar neles, são seus pais. Eles abusaram dessa confiança. Não é sua culpa."
+			);
+			n("É...");
 			What_Now();
-		}
+		},
 	});
-
 }
 
-function What_Now(){
-
+function What_Now() {
 	j(". . .");
 
-	n("You know... talking with my parents, it's like...");
-	n("That mode of communication?");
-	n("It's imprecise, impersonal, impossible to truly connect.");
+	n("Sabe... conversar com meus pais é tipo...");
+	n("Aquele modo de comunicação?");
+	n("É impreciso, impessoal, impossível de realmente se conectar.");
 
 	j(". . .");
-	j("What now?");
+	j("E agora?");
 
 	Choose({
-		"I'm going to sabotage my parents' plans.": function(message){
+		"Vou sabotar os planos dos meus pais.": function (message) {
 			n(message);
 
-			if($.told_jack=="texts"){
-				n("I'll set up a new email and virtual phone number to talk with you.");
-				n("This way they can't spy on our communications anymore.");
-			}else if($.told_jack=="girl"){
-				n("I'll tell Claire everything. With any luck, she'll help me fight back.");
-			}else{
-				n("I'll figure out a way, somehow...");
+			if ($.told_jack == "texts") {
+				n("Vou criar um novo e-mail e número virtual para falar com você.");
+				n("Assim eles não podem mais espionar nossas conversas.");
+			} else if ($.told_jack == "girl") {
+				n(
+					"Vou contar tudo para a Claire. Com sorte, ela vai me ajudar a lutar contra isso."
+				);
+			} else {
+				n("Vou dar um jeito, de algum modo...");
 			}
 
 			What_Now_2();
 		},
-		"I'll visit the school counselor tomorrow.": function(message){
+		"Vou falar com o orientador da escola amanhã.": function (message) {
 			n(message);
 
-			if($.told_jack=="abuse"){
-				n("Like I promised. Like you made me promise.");
-			}else if($.told_jack=="school"){
-				n("My current school, that is. I don't know how soon they'll be transferring me.");
-			}else{
-				n("At least they'll be someone else I can lash out on.");
+			if ($.told_jack == "abuse") {
+				n("Como prometi. Como você me fez prometer.");
+			} else if ($.told_jack == "school") {
+				n(
+					"Na escola atual, claro. Não sei quando vão me transferir."
+				);
+			} else {
+				n("Pelo menos vai ser mais alguém em quem posso descontar.");
 			}
 
 			What_Now_2();
 		},
-		"I'm getting out of this house.": function(message){
+		"Vou sair dessa casa.": function (message) {
 			n(message);
 
-			n("Not running away, I mean. Although if I did I could crash at your place.");
-			n("But anyway. I'm going to try to get an internship or scholarship in the US.");
-			n("And get far, far away from these people.");
+			n(
+				"Não estou fugindo, quero dizer. Mas se eu fugisse, poderia ficar na sua casa."
+			);
+			n(
+				"Mas enfim. Vou tentar conseguir um estágio ou bolsa nos EUA."
+			);
+			n("E ficar bem longe dessas pessoas.");
 			What_Now_2();
-		}
+		},
 	});
-
 }
 
-function What_Now_2(){
-
-	j("No, I mean... what now, between us?");
+function What_Now_2() {
+	j("Não, quero dizer... e agora, entre nós?");
 	n("Jack...");
-	j("What do we do? What... What happens?");
+	j("O que a gente faz? O que... o que acontece?");
 	n(". . .");
 
 	Choose({
-		"We have to break up.": function(message){
+		"A gente tem que terminar.": function (message) {
 			$.breaking_up_soon = true;
 
 			n(message);
 
-			j("No, no no...");
-			n("I can't do this to you, Jack. I can't pull you down with me.");
-			j("At least, don't type 'we can still be friends'.");
-			n("we can still be frie");
+			j("Não, não, não...");
+			n("Não posso fazer isso com você, Jack. Não posso te arrastar comigo.");
+			j("Pelo menos, não diga 'a gente ainda pode ser amigo'.");
+			n("a gente ainda pode ser am");
 			n(". . .");
-			j("Because, of course we're friends. Of course we are.");
+			j("Porque, claro que somos amigos. Claro que sim.");
 			n(". . .");
 			What_Now_3();
 		},
-		"We stick together as long as we can.": function(message){
+		"A gente fica junto enquanto der.": function (message) {
 			n(message);
 
 			j(". . .");
-			j("As long as we can.");
+			j("Enquanto der.");
 			n(". . .");
 			What_Now_3();
 		},
-		"I don't know.": function(message){
+		"Não sei.": function (message) {
 			$.breaking_up_soon = true;
 
 			n(message);
 
 			j(". . .");
 			What_Now_3();
-		}
+		},
 	});
-
 }
 
-function What_Now_3(){
-
-	n("It's late.");
-	n("There's a lot I need to sleep on, now.");
-	j("Okay.");
+function What_Now_3() {
+	n("Está tarde.");
+	n("Tenho muita coisa para pensar agora.");
+	j("Ok.");
 	j(". . .");
-	j("I love you, Nicky.");
-	n("I love you too, Jack.");
-	
+	j("Eu te amo, Nicky.");
+	n("Eu também te amo, Jack.");
+
 	var insult = "";
-	if($.hippies) insult+=" new-age hippie";
-	if($.im_a_poet) insult+=" amateur poet";
-	if(insult!=""){
-		n("You"+insult+".");
-	}else{
-		n("You goof.");
+	if ($.hippies) insult += " hippie alternativo";
+	if ($.im_a_poet) insult += " poeta amador";
+	if (insult != "") {
+		n("Seu" + insult + ".");
+	} else {
+		n("Seu bobo.");
 	}
 
 	The_Game_Ends();
-
 }
 
-function The_Game_Ends(){
+function The_Game_Ends() {
 	Wait(500);
 	Start_Outro();
 }
-
