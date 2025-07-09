@@ -1,310 +1,288 @@
-// is short
-// What ARE you. Fake crying, and don't tell your dad
-// Weave it
-
-function Start_Dinner_4(){
-
+function Start_Dinner_4() {
 	n(". . .");
-	m("It's because your dad's almost never home, isn't it?");
-	m("Without a strong male role model, you become confused...");
+	m("É porque seu pai quase nunca está em casa, não é?");
+	m("Sem uma figura masculina forte, você fica confuso...");
 
 	Choose({
-		"Yeah, coz Dad's SUCH a great role model.": function(message){
+		"É, porque o pai é um ÓTIMO exemplo mesmo.": function (message) {
 			n(message);
-			m("Nick, no matter what, he's your father. You should love him.");
+			m("Nick, não importa o que aconteça, ele é seu pai. Você deve amá-lo.");
 			My_Fault();
 		},
-		"That's not how it works. I'd be bi anyway.": function(message){
+		"Não é assim que funciona. Eu seria bi de qualquer jeito.": function (message) {
 			n(message);
-			m("How do you know?! Are you an expert in psychology?!");
+			m("Como você sabe?! Você é especialista em psicologia?!");
 			My_Fault();
 		},
-		"You know what? Maybe you're right.": function(message){
+		"Sabe de uma coisa? Talvez você esteja certa.": function (message) {
 			n(message);
-			m("I know...");
+			m("Eu sei...");
 			My_Fault();
-		}
-	});
-
-}
-
-function My_Fault(){
-	
-	Show("clock_time","clock_1930");
-
-	n(". . .");
-	m("This is all my fault...");
-	m("I told you to be careful around those kinds of people, but I told you too late...");
-
-	Show("mom","mom_cry");
-
-	m("[sob]");
-	m("Oh Nick! My poor baby!");
-
-	Show("nicky","dinner_nicky_sit");
-
-	Choose({
-		"Mom... please don't cry...": Cry_1,
-		"Quit your fake crying.": Cry_2,
-		"[cry]": Cry_3
+		},
 	});
 }
 
-function Cry_1(message){
+function My_Fault() {
+	Show("clock_time", "clock_1930");
 
+	n(". . .");
+	m("Isso tudo é culpa minha...");
+	m(
+		"Eu te disse para tomar cuidado com esse tipo de gente, mas falei tarde demais..."
+	);
+
+	Show("mom", "mom_cry");
+
+	m("[choro]");
+	m("Oh Nick! Meu pobre filho!");
+
+	Show("nicky", "dinner_nicky_sit");
+
+	Choose({
+		"Mãe... por favor, não chore...": Cry_1,
+		"Para com esse choro falso.": Cry_2,
+		"[chora]": Cry_3,
+	});
+}
+
+function Cry_1(message) {
 	$.crying = "sympathy";
 
 	n(message);
 	m("huu... huu... huu...");
-	n("I'm sorry. About Jack, the lies, everything.");
+	n("Desculpa. Sobre o Jack, as mentiras, tudo.");
 	m("owww... owww...");
-	n("I take it all back.");
-	m("sniff...");
-	n("...please...");
+	n("Eu retiro tudo que disse.");
+	m("snif...");
+	n("...por favor...");
 	What_Are_You();
 }
 
-function Cry_2(message){
-
+function Cry_2(message) {
 	$.crying = "anger";
-	Show("nicky","dinner_nicky_defiant");
+	Show("nicky", "dinner_nicky_defiant");
 
 	n(message);
 	m("huu... huu... huu...");
-	n("Seriously, it is SO fake.");
+	n("Sério, é MUITO falso.");
 	m("owww... owww...");
-	n("Will you shut up?!");
-	m("sniff...");
-	n("SHUT. UP.");
+	n("Você pode calar a boca?!");
+	m("snif...");
+	n("CALA. A. BOCA.");
 	What_Are_You();
-
 }
 
-function Cry_3(message){
-
+function Cry_3(message) {
 	$.crying = "mocking";
-	Show("nicky","dinner_nicky_outrage");
+	Show("nicky", "dinner_nicky_outrage");
 
 	n("BAWWWWW");
 	m("huu... huu... huu...");
-	n("WAH WAH WAH WAH WAHHH");
+	n("UAH UAH UAH UAH UAHHH");
 	m("owww... owww...");
-	n("BRRrrRR-BRR-BRbR BWAH BWAHRR rrrRRR-WaahHH WO WO WO RaaahhH");
-	m("sniff...");
+	n("BRRrrRR-BRR-BRbR BUAH BUAHRR rrrRRR-UaahHH WO WO WO RaaahhH");
+	m("snif...");
 
-	Show("nicky","dinner_nicky_defiant");
-	n("Okay, we done?");
+	Show("nicky", "dinner_nicky_defiant");
+	n("Pronto, acabou?");
 	What_Are_You();
-
 }
 
-function What_Are_You(){
-
+function What_Are_You() {
 	m(". . .");
-	m("Nick... what are you?");
-	n("Excuse me?");
+	m("Nick... o que você é?");
+	n("Como assim?");
 
-	Show("nicky","dinner_nicky_sit");
+	Show("nicky", "dinner_nicky_sit");
 
-	Show("mom","mom_sit");
-	m("What <i>are</i> you?");
+	Show("mom", "mom_sit");
+	m("O que <i>você</i> é?");
 
 	Choose({
-		"I'm bisexual.": function(message){
-
+		"Sou bissexual.": function (message) {
 			$.what_are_you = "bisexual";
 
 			n(message);
-			if($.admit_bisexuality){
-				m("...and you said that means...");
+			if ($.admit_bisexuality) {
+				m("...e você disse que isso significa...");
 			}
-			n("Sexually attracted to both men and women.");
-			m("You can't be both.")
-			m("You have to pick one.");
-			n("That's... not how it works. At all.");
+			n("Sexualmente atraído por homens e mulheres.");
+			m("Você não pode ser os dois.");
+			m("Você tem que escolher um.");
+			n("Não é assim que funciona. Nem um pouco.");
 			Have_You_Had_Sex();
-
 		},
-		"I'm just confused.": function(message){
-
+		"Só estou confuso.": function (message) {
 			$.what_are_you = "confused";
 
 			n(message);
-			m("...I know.");
-			m("I'm sorry Jack confused you.");
-			m("You're just going through a phase, it's okay.");
+			m("...Eu sei.");
+			m("Desculpa o Jack ter te confundido.");
+			m("Você só está passando por uma fase, tudo bem.");
 			n(". . .");
-			m("It's okay. It's okay...");
+			m("Tudo bem. Tudo bem...");
 			Have_You_Had_Sex();
-
 		},
-		"I'm your son, dammit.": function(message){
-
+		"Sou seu filho, poxa.": function (message) {
 			$.what_are_you = "son";
 
 			n(message);
 			n(". . .");
-			n("Isn't that enough?");
+			n("Não basta isso?");
 			Have_You_Had_Sex();
-
-		}
+		},
 	});
 }
 
-function Have_You_Had_Sex(){
+function Have_You_Had_Sex() {
 	m(". . .");
-	m("Did you have sex with Jack.");
+	m("Você fez sexo com o Jack?");
 	Choose({
-		"Yes.": function(message){
+		"Sim.": function (message) {
 			n(message);
-			m("[DRY HEAVE]");
+			m("[ENGASGA]");
 			Have_You_Had_Sex_2();
 		},
-		"No.": function(message){
+		"Não.": function (message) {
 			n(message);
-			m("Please stop lying... I saw your texts...");
-			n("We were just sexting, we didn't actually--");
-			m("...and your photos...");
+			m("Por favor, pare de mentir... Eu vi suas mensagens...");
+			n("A gente só trocou mensagens, não fez nada de fato--");
+			m("...e suas fotos...");
 			Have_You_Had_Sex_2();
 		},
-		"I'm not saying.": function(message){
+		"Não vou dizer.": function (message) {
 			n(message);
-			m("oh my god... you did.");
+			m("ai meu deus... você fez.");
 			Have_You_Had_Sex_2();
-		}
+		},
 	});
 }
 
-function Have_You_Had_Sex_2(){
-
+function Have_You_Had_Sex_2() {
 	n(". . .");
-	m("Which... one of you is the woman?");
+	m("Qual de vocês... é a mulher?");
 
-	Show("nicky","dinner_nicky_outrage");
+	Show("nicky", "dinner_nicky_outrage");
 
-	n("OH COME ON!");
-	n("That's like asking which chopstick is the spoo--");
-	m("Which one of you?...");
+	n("AH, QUAL É!");
+	n("É tipo perguntar qual hashi é a colhe--");
+	m("Qual de vocês?...");
 
-	Show("nicky","dinner_nicky_defiant");
+	Show("nicky", "dinner_nicky_defiant");
 
 	Choose({
-		"I'm usually the bottom.":function(message){
+		"Eu geralmente sou o passivo.": function (message) {
 			$.top_or_bottom = "bottom";
 
 			n(message);
 			Throw_Up();
 		},
-		"Jack is, mostly.":function(message){
+		"O Jack é, na maioria das vezes.": function (message) {
 			$.top_or_bottom = "top";
 
 			n(message);
-			m("Th-that... means you could still be straight! R-right?...");
-			m("If... you know... you're the one who puts your...");
-			m("your...");
+			m("I-isso... quer dizer que você ainda pode ser hétero! C-certo?...");
+			m("Se... sabe... você é quem coloca o seu...");
+			m("seu...");
 			Throw_Up();
 		},
-		"We take turns.":function(message){
+		"A gente reveza.": function (message) {
 			$.top_or_bottom = "versatile";
 
 			n(message);
 			Throw_Up();
-		}
+		},
 	});
 }
 
-function Throw_Up(){
+function Throw_Up() {
+	PlaySound("sfx", "dinner_vomit");
 
-	PlaySound("sfx","dinner_vomit");
-
-	Show("clock_time","clock_1940");
-	Show("mom","mom_vomit");
-	Show("table","dinner_table_2");
+	Show("clock_time", "clock_1940");
+	Show("mom", "mom_vomit");
+	Show("table", "dinner_table_2");
 	Wait(1000);
 
 	Choose({
-		"what.": Father_Soon,
-		"whaaat.": Father_Soon,
-		"whaaaaaaaaaaaaaaat.": Father_Soon
+		"o quê.": Father_Soon,
+		"o queee.": Father_Soon,
+		"o queeeeeeeeeeeeeee.": Father_Soon,
 	});
-
 }
 
-function Father_Soon(message){
-
+function Father_Soon(message) {
 	n(message);
 
-	Show("mom","mom_sit");
+	Show("mom", "mom_sit");
 
 	m(". . .");
-	m("Your father will be back soon.");
-	n("The food's cold. Well, except for the spot you just uh, reversed, on.");
-	m("Your dad's late. Must have been a stressful day at work.");
-	m("So... please... when he's back...");
-	m("Promise me you'll keep all this secret?");
+	m("Seu pai vai chegar logo.");
+	n("A comida está fria. Bom, exceto o lugar que você acabou de, ah, devolver.");
+	m("Seu pai está atrasado. Deve ter sido um dia estressante no trabalho.");
+	m("Então... por favor... quando ele chegar...");
+	m("Promete que vai manter tudo isso em segredo?");
 	n(". . .");
 
-	m("Don't tell him about Jack.");
+	m("Não conte para ele sobre o Jack.");
 
-	switch($.what_are_you){
+	switch ($.what_are_you) {
 		case "bisexual":
-			m("Don't tell him you think you're bisexual.");
+			m("Não conte para ele que você acha que é bissexual.");
 			break;
 		case "confused":
-			m("Don't tell him you're confused about your sexuality.");
+			m("Não conte para ele que você está confuso sobre sua sexualidade.");
 			break;
 		case "son":
-			m("Don't tell him you lied to us so you could... do things with Jack.");
+			m("Não conte para ele que você mentiu para nós para... fazer coisas com o Jack.");
 			break;
 	}
 
-	switch($.top_or_bottom){
+	switch ($.top_or_bottom) {
 		case "top":
-			m("Don't tell him you make Jack a woman.");
+			m("Não conte para ele que você faz do Jack uma mulher.");
 			break;
 		case "bottom":
-			m("Don't tell him you act like a woman with Jack.");
+			m("Não conte para ele que você age como mulher com o Jack.");
 			break;
 		case "versatile":
-			m("Don't tell him you and Jack both act like women.");
+			m("Não conte para ele que você e o Jack agem como mulheres.");
 			break;
 	}
 
-	m("Okay?...");
+	m("Tudo bem?...");
 
 	Choose({
-		"Okay.": function(message){
+		"Tudo bem.": function (message) {
 			$.promise_silence = "yes";
-			
-			n(message);
-			m("Okay.");
-			m(". . .");
-			m("Your father's here.");
-			Father_Soon_2();
-		},
-		"No. Not okay.": function(message){
-			$.promise_silence = "no";
-			
-			n(message);
-			m("Nick, no no no, please--");
-			m("Oh no. Your father's here.");
-			Father_Soon_2();
-		},
-		"As long as you don't tell him, either.": function(message){
-			$.promise_silence = "tit for tat";
-			
-			n(message);
-			m("I won't.");
-			n("Promise me you won't.");
-			m("I pr--");
-			m("Shhh. Your father's here.");
-			Father_Soon_2();
-		}
-	});
 
+			n(message);
+			m("Tudo bem.");
+			m(". . .");
+			m("Seu pai chegou.");
+			Father_Soon_2();
+		},
+		"Não. Não está tudo bem.": function (message) {
+			$.promise_silence = "no";
+
+			n(message);
+			m("Nick, não não não, por favor--");
+			m("Ai não. Seu pai chegou.");
+			Father_Soon_2();
+		},
+		"Se você também não contar pra ele.": function (message) {
+			$.promise_silence = "tit for tat";
+
+			n(message);
+			m("Eu não vou.");
+			n("Promete que você também não vai.");
+			m("Eu pro--");
+			m("Shhh. Seu pai chegou.");
+			Father_Soon_2();
+		},
+	});
 }
 
-function Father_Soon_2(){
-	Show("nicky","dinner_nicky_sit");
+function Father_Soon_2() {
+	Show("nicky", "dinner_nicky_sit");
 	Start_Dinner_5();
 }

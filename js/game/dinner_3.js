@@ -1,345 +1,337 @@
-// Plot points:
-// Trying to stay overnight.
-// Reveal - hippie parents, reading poetry, ...(?)
-// Threats -- date your tutor, changing school(?)
-// He's distracting you. Movie & Hippies.
-// Oh my god, you've been reading my texts!...
-
-function Start_Dinner_3(){
-
-	n("Mom.");
+function Start_Dinner_3() {
+	n("Mãe.");
 
 	Choose({
-		"That's why I'm studying more with Jack.": Tutor,
-		"Look, I'm trying. I really am.": Tutor,
-		"My grades are fine.": Tutor
+		"É por isso que estou estudando mais com o Jack.": Tutor,
+		"Olha, eu estou tentando. De verdade.": Tutor,
+		"Minhas notas estão boas.": Tutor,
 	});
-
 }
 
-function Tutor(message){
-
+function Tutor(message) {
 	n(message);
-	m("I'm worried for you. Jack's not a good influence.");
+	m("Estou preocupada com você. Jack não é uma boa influência.");
 
-	if($.hippies){
-		m("I think his parents might even be drug addicts...");
-		n("What makes you say th--");
-	}else if($.im_a_poet){
-		m("All he does is do poetry.");
-		n("What makes you say th--");
-	}
-	
-	m("I'm getting you a home tutor.");
-	n("...what?");
-
-	if($.studying_subject!=$.studying_subject_2){
-		m("She'll be tutoring you in "+$.studying_subject+" and "+$.studying_subject_2+".");
-	}else{
-		m("She'll be tutoring you in "+$.studying_subject+".");
+	if ($.hippies) {
+		m("Acho que os pais dele podem até ser viciados em drogas...");
+		n("O que te faz pensar is--");
+	} else if ($.im_a_poet) {
+		m("Tudo o que ele faz é poesia.");
+		n("O que te faz pensar is--");
 	}
 
-	m("Her name is Claire. She's smart, pretty, and Caucasian. She's your age, too.");
+	m("Vou te arrumar uma tutora particular.");
+	n("...o quê?");
+
+	if ($.studying_subject != $.studying_subject_2) {
+		m(
+			"Ela vai te ajudar em " +
+				$.studying_subject +
+				" e " +
+				$.studying_subject_2 +
+				"."
+		);
+	} else {
+		m("Ela vai te ajudar em " + $.studying_subject + ".");
+	}
+
+	m(
+		"O nome dela é Claire. Ela é inteligente, bonita e caucasiana. Tem a sua idade também."
+	);
 
 	Choose({
-		"Are you trying to stop me from seeing Jack?": Tutor_Seeing,
-		"Are you trying to matchmake me with her?": Tutor_Matchmake,
-		"Can we talk about tutors another time?": Tutor_Forget
+		"Você está tentando me impedir de ver o Jack?": Tutor_Seeing,
+		"Você está tentando me empurrar pra ela?": Tutor_Matchmake,
+		"Podemos falar de tutores outra hora?": Tutor_Forget,
 	});
-
 }
 
-function Tutor_Seeing(message){
+function Tutor_Seeing(message) {
 	n(message);
-	m("I'm sorry, <i>seeing</i> Jack?");
-	m("Be careful how you say that. You make it sound like...");
-	
+	m("Desculpa, <i>ver</i> o Jack?");
+	m("Cuidado com as palavras. Você faz parecer que...");
+
 	Choose({
-		"Like we're dating? Yeah. We are.": function(message){
+		"Como se estivéssemos namorando? Sim. Estamos.": function (message) {
 			n(message);
 			m(". . .");
 			n(". . .");
-			n("...Hello?");
+			n("...Alô?");
 			m(". . .");
-			n("Anyone there?");
+			n("Tem alguém aí?");
 			m(". . .");
 			Threat_School();
 		},
-		"I just meant meeting Jack.": function(message){
+		"Só quis dizer encontrar o Jack.": function (message) {
 			n(message);
-			m("Okay. Just being clear about some things.");
-			n("Yeah.");
+			m("Ok. Só esclarecendo as coisas.");
+			n("É.");
 			m(". . .");
-			m("Claire's really cute.");
-			n("Sure.");
-			m("She has perky breasts.");
+			m("A Claire é bem bonita.");
+			n("Certo.");
+			m("Ela tem seios empinados.");
 			Threat_Tutor();
 		},
-		"We're. Not. Boyfriends.": function(message){
+		"Nós. Não. Somos. Namorados.": function (message) {
 			n(message);
 			m(". . .");
-			m("Okay.");
-			m("I never said you were, but... okay.");
-			n("We're friends.");
+			m("Ok.");
+			m("Eu nunca disse que eram, mas... ok.");
+			n("Somos amigos.");
 
-			if($.relationship=="friend"){
-				m("\"Good pals\"...");
+			if ($.relationship == "friend") {
+				m('"Bons amigos"...');
 			}
-			if($.relationship=="best friend"){
-				m("\"BEST friends\"...");
+			if ($.relationship == "best friend") {
+				m('"MELHORES amigos"...');
 			}
 
 			Threat_Tutor();
-
-		}
+		},
 	});
 }
 
-function Tutor_Matchmake(message){
+function Tutor_Matchmake(message) {
 	n(message);
-	m("Well, if that's what you want, I could!");
-	n("nooooo.");
-	m("Don't be shy! You're growing up to be a man.");
-	m("And you're going to give me lots of grandkids.");
+	m("Bem, se é isso que você quer, posso sim!");
+	n("nãooooo.");
+	m("Não seja tímido! Você está crescendo, virando um homem.");
+	m("E vai me dar muitos netos.");
 
 	Choose({
-		"Stop it! I haven't even met Claire yet!": function(message){
+		"Para! Nem conheci a Claire ainda!": function (message) {
 			n(message);
-			m("Yet!");
-			m("She's coming over tomorrow!");
-			n("What? But I promised Jack--");
-			m("I ironed your best clothes. You'll make a good first impression.");
+			m("Ainda!");
+			m("Ela vem aqui amanhã!");
+			n("O quê? Mas eu prometi ao Jack--");
+			m("Passei sua melhor roupa. Vai causar boa impressão.");
 			Threat_Tutor();
 		},
-		"The odds of that are 50-50, coz I'm bi.": function(message){
-
+		"As chances são 50-50, porque sou bi.": function (message) {
 			$.admit_bisexuality = true;
 
 			n(message);
-			m("Um. Bi?...");
+			m("Hã. Bi?...");
 
-			Show("nicky","dinner_nicky_defiant");
+			Show("nicky", "dinner_nicky_defiant");
 
-			n("Yes. As in BISEXUAL.");
-			n("As in I AM SEXUALLY ATTRACTED TO BOTH MEN AND WOMEN.");
+			n("Sim. BISEXUAL.");
+			n("Ou seja, ME SINTO ATRAÍDO POR HOMENS E MULHERES.");
 			m(". . .");
 			n(". . .");
 			Threat_School();
 		},
-		"No. I don't ever want to have kids.": function(message){
+		"Não. Nunca quero ter filhos.": function (message) {
 			n(message);
-			m("You'll change your mind when you grow up.");
-			m("Raising a child is wonderful. Your children will look up to you!");
-			n("...of course, you narcissist.");
-			m("Excuse me?");
-			n("Nothing.");
+			m("Você vai mudar de ideia quando crescer.");
+			m("Criar um filho é maravilhoso. Eles vão te admirar!");
+			n("...claro, sua narcisista.");
+			m("Como é?");
+			n("Nada.");
 			m(". . .");
 			Threat_Tutor();
-		}
+		},
 	});
 }
 
-function Tutor_Forget(message){
+function Tutor_Forget(message) {
 	n(message);
-	m("No, because I've already scheduled Claire to come over tomorrow.");
-	n("What?!");
-	n("No. I promised to study with Jack tomorrow.");
+	m("Não, porque já marquei com a Claire pra vir amanhã.");
+	n("O quê?!");
+	n("Não. Eu prometi estudar com o Jack amanhã.");
 	m(". . .");
-	m("How long did you want to stay over at his place?");
+	m("Quanto tempo você queria ficar na casa dele?");
 
 	Choose({
-		"Overnight.": function(message){
+		"A noite toda.": function (message) {
 			n(message);
 			m(". . .");
 			n(". . .");
-			n("...Hello?");
-			n("It's not weird. Friends have sleepovers all the time.");
+			n("...Alô?");
+			n("Não é estranho. Amigos dormem juntos o tempo todo.");
 			m(". . .");
 			Threat_School();
 		},
-		"Just the afternoon.": function(message){
+		"Só à tarde.": function (message) {
 			n(message);
-			if($.lying_about_hanging_out){
-				m("I knew it. I caught your lie earlier.");
-				n("Huh?");
-			}else{
-				m("...I knew it.");
+			if ($.lying_about_hanging_out) {
+				m("Sabia. Peguei sua mentira antes.");
+				n("Hã?");
+			} else {
+				m("...Eu sabia.");
 			}
-			m("You're just hanging out with him.");
+			m("Você só quer sair com ele.");
 			Threat_Tutor();
 		},
-		"Maybe an hour or so.": function(message){
+		"Talvez uma hora só.": function (message) {
 			n(message);
-			m("That's not enough to really get studying done.");
-			if($.lying_about_hanging_out){
-				m("I knew it. I caught your lie earlier.");
-				n("Huh?");
+			m("Isso não é tempo suficiente pra estudar de verdade.");
+			if ($.lying_about_hanging_out) {
+				m("Sabia. Peguei sua mentira antes.");
+				n("Hã?");
 			}
-			m("You're just hanging out with him.");
+			m("Você só quer sair com ele.");
 			Threat_Tutor();
-		}
+		},
 	});
 }
 
-function Threat_Tutor(){
-	
-	Show("nicky","dinner_nicky_defiant");
-	
+function Threat_Tutor() {
+	Show("nicky", "dinner_nicky_defiant");
+
 	n(". . .");
-	m("Claire will be tutoring you every day after school, starting tomorrow.");
+	m("A Claire vai te dar aula todo dia depois da escola, começando amanhã.");
 
 	Choose({
-		"Every day?! What about my friends?!":function(message){
+		"Todo dia?! E meus amigos?!": function (message) {
 			n(message);
-			m("Sweetie, I'm your friend!");
+			m("Querido, eu sou sua amiga!");
 			n(". . .");
-			m("Also Claire can be your friend. Maybe more than friends.");
+			m("A Claire também pode ser sua amiga. Ou mais que amiga.");
 			n(". . .");
-			n("Are we done?");
-			m("Just... one more thing.");
+			n("Terminamos?");
+			m("Só... mais uma coisa.");
 			Plot_Twist();
 		},
-		"Okay, but my weekends are free, right?": function(message){
+		"Ok, mas meus fins de semana estão livres, né?": function (message) {
 			n(message);
-			m("Yes.");
-			n("Okay. Good that this is all settled now.");
-			m("...Yes.");
+			m("Sim.");
+			n("Ok. Que bom que está tudo resolvido.");
+			m("...Sim.");
 			n(". . .");
-			m("Just... one more thing.");
+			m("Só... mais uma coisa.");
 			Plot_Twist();
 		},
-		"What if I just DON'T study with Claire?": function(message){
+		"E se eu NÃO estudar com a Claire?": function (message) {
 			n(message);
-			m("Well, if you also want to hang out with her, that's good too.");
-			m("Anything to make you more manly.");
-			n("ugh.");
-			m("Oh.");
-			m("One more thing.");
+			m("Bem, se quiser sair com ela também, melhor ainda.");
+			m("Qualquer coisa pra te deixar mais masculino.");
+			n("aff.");
+			m("Ah.");
+			m("Mais uma coisa.");
 			Plot_Twist();
-		}
+		},
 	});
-
 }
 
-function Threat_School(){
-
+function Threat_School() {
 	$.changing_schools = true;
-	
-	m("You're changing schools.");
 
-	Show("nicky","dinner_nicky_outrage");
+	m("Você vai mudar de escola.");
 
-	n("WHAT?!");
-	m("I think it's not just Jack, it's the entire school that's a bad influence on you.");
-	n("ARE YOU SERIOUS.");
-	m("The whole Canadian culture is making you confused about who you are.");
+	Show("nicky", "dinner_nicky_outrage");
 
-	Show("nicky","dinner_nicky_defiant");
+	n("O QUÊ?!");
+	m(
+		"Acho que não é só o Jack, é a escola toda que está te influenciando mal."
+	);
+	n("VOCÊ TÁ SÉRIA.");
+	m("A cultura canadense está te confundindo sobre quem você é.");
+
+	Show("nicky", "dinner_nicky_defiant");
 
 	Choose({
-		"No, it's YOUR Asian culture that's backwards!": function(message){
+		"Não, é SUA cultura asiática que é atrasada!": function (message) {
 			n(message);
-			m("Don't be so rude!");
-			m("It's YOUR culture, too!");
+			m("Não seja grosseiro!");
+			m("É SUA cultura também!");
 			n(". . .");
 			Plot_Twist();
 		},
-		"You can't do this to your CHILD!": function(message){
+		"Você não pode fazer isso com SEU FILHO!": function (message) {
 			n(message);
-			m("Don't be so rude!");
-			m("I'm your MOTHER, it's my right to do whatever I want with you!");
+			m("Não seja grosseiro!");
+			m("Sou sua MÃE, tenho direito de fazer o que quiser com você!");
 			n(". . .");
 			Plot_Twist();
 		},
-		"Whatever, ALL schools have queer people.": function(message){
+		"Tanto faz, TODAS as escolas têm pessoas queer.": function (message) {
 			n(message);
-			m("Don't be so rude!");
-			m("And watch it, I could change my mind and start homeschooling you.");
+			m("Não seja grosseiro!");
+			m("E olha lá, posso mudar de ideia e te ensinar em casa.");
 			n(". . .");
 			Plot_Twist();
-		}
+		},
 	});
-
 }
 
-function Plot_Twist(){
+function Plot_Twist() {
+	m("Ontem, quando você supostamente estava estudando com o Jack?");
+	m("Eu sei que vocês foram ver um filme escondidos.");
 
-	m("Yesterday, when you were supposedly studying with Jack?");
-	m("I know you secretly went off to watch a movie.");
-
-	Show("nicky","dinner_nicky_sit");
+	Show("nicky", "dinner_nicky_sit");
 	n(". . .");
 
-	Show("clock_time","clock_1920");
+	Show("clock_time", "clock_1920");
 
 	Choose({
-		"Oh my god. You read my texts.": function(message){
+		"Meu deus. Você leu minhas mensagens.": function (message) {
 			n(message);
-			m("Yes. See how smart you can be when you're not with Jack?");
+			m("Sim. Viu como você pode ser esperto quando não está com o Jack?");
 			Plot_Twist_2();
 		},
-		"No, we didn't. We studied.": function(message){
+		"Não, não fomos. Estudamos.": function (message) {
 			n(message);
-			m("You are a very stubborn boy.");
-			m("I read your text messages.");
+			m("Você é muito teimoso.");
+			m("Eu li suas mensagens de texto.");
 			Plot_Twist_2();
 		},
-		"What makes you think that?": function(message){
+		"Por que você acha isso?": function (message) {
 			n(message);
-			m("Because I read your text messages.");
+			m("Porque eu li suas mensagens de texto.");
 			Plot_Twist_2();
-		}
+		},
 	});
-
 }
 
-function Plot_Twist_2(){
+function Plot_Twist_2() {
+	n(". . .");
+	m("Antes do jantar. Eu estava no seu quarto.");
+
+	m(
+		"Você gritou '" +
+			$.what_you_called_out +
+			"' lá de baixo, enquanto eu destrancava seu celular..."
+	);
+	m("E li o que você e o Jack têm conversado.");
+	m("Sou sua mãe. Tenho esse direito.");
 
 	n(". . .");
-	m("Before dinner. I was in your room.");
 
-	// Dinner_1
-	m("You yelled out '"+$.what_you_called_out+"' from downstairs, while I unlocked your phone...");
-	m("And read what you and Jack have been sending to each other.");
-	m("I'm your mother. I have the right.");
-
-	n(". . .");
-
-	if($.im_a_poet){
-		m("Weird poetry?");
+	if ($.im_a_poet) {
+		m("Poesia estranha?");
 	}
-	if($.hippies){
-		m("Talking about smoking marijuana?");
+	if ($.hippies) {
+		m("Falando sobre fumar maconha?");
 	}
-	if($.im_a_poet || $.hippies){
-		m("Helping you lie to your own mother?");
-		m("What else have you been doing behind my back?");
+	if ($.im_a_poet || $.hippies) {
+		m("Te ajudando a mentir pra sua própria mãe?");
+		m("O que mais você anda fazendo escondido?");
 	}
 
 	Choose({
-		"This has to be a bad dream.": function(message){
+		"Isso só pode ser um pesadelo.": function (message) {
 			n(message);
-			m("Like that 'Deception' movie?");
-			n("It's... it's 'Inception'.");
-			m("Don't talk back to me.");
+			m("Tipo aquele filme 'A Origem'?");
+			n("É... é 'Inception'.");
+			m("Não me responda.");
 			Plot_Twist_3();
 		},
-		"I'm sorry. I'm so sorry.": function(message){
+		"Desculpa. Me desculpa mesmo.": function (message) {
 			n(message);
-			m("I forgive you.");
-			m("You're my child, of course I forgive you.");
+			m("Eu te perdoo.");
+			m("Você é meu filho, claro que te perdoo.");
 			Plot_Twist_3();
 		},
-		"I hate you.": function(message){
+		"Eu te odeio.": function (message) {
 			n(message);
-			m("That's okay.");
-			m("I still love you, Nick.");
+			m("Tudo bem.");
+			m("Eu ainda te amo, Nick.");
 			Plot_Twist_3();
 		},
 	});
-
 }
 
-function Plot_Twist_3(){
+function Plot_Twist_3() {
 	Start_Dinner_4();
 }
