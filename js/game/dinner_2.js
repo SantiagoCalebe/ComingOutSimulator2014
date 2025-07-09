@@ -1,384 +1,367 @@
-// PLOT POINTS:
-// 1) Studying at Jack's
-// 2) Suspecting Jack is gay
-// 3) Trying to get you a private tutor (threatening your relationship)
+function Start_Dinner_2() {
+	m("Oi, querido.");
+	Show("mom", "mom_sit");
 
-function Start_Dinner_2(){
-
-	m("Hi sweetie.");
-	Show("mom","mom_sit");
-
-	switch($.waiting_action){
+	switch ($.waiting_action) {
 		case "eat":
-			m("Oh, you started eating without me. You're very impatient.");
-			n("...right.");
+			m("Ah, você começou a comer sem mim. Você é muito impaciente.");
+			n("...certo.");
 			break;
 		case "wait":
-			m("You could have started without me. No need to let your food get cold.");
-			n("...sure.");
+			m(
+				"Você poderia ter começado sem mim. Não precisa deixar sua comida esfriar."
+			);
+			n("...claro.");
 			break;
 		case "play":
-			m("It's immature to play with your food, you know.");
-			n("Yeah, yeah.");
+			m("É imaturo brincar com a comida, sabia?");
+			n("Tá, tá.");
 			break;
 	}
 
-	m("Your father's running late. He'll be joining us for dinner in an hour's time.");
+	m(
+		"Seu pai está atrasado. Ele vai jantar com a gente daqui a uma hora."
+	);
 
 	Choose({
-		"Cool. Let's eat.": function(message){
+		"Legal. Vamos comer.": function (message) {
 			n(message);
-			n("*nom nom nom*");
+			n("*nham nham nham*");
 			m(". . .");
-			m("What's your plans for tomorrow?");
+			m("Quais são seus planos para amanhã?");
 			Start_Dinner_2_1();
 		},
-		"I have something to tell both of you.": function(message){
+		"Tenho algo para contar para vocês dois.": function (message) {
 			n(message);
-			m("Alright. Tell us both later when he comes back.");
-			n("Oh. Okay.");
+			m("Tudo bem. Conte para nós dois quando ele voltar.");
+			n("Ah. Ok.");
 			m(". . .");
-			n("*nom nom nom*");
-			m("So, what's your plans for tomorrow?");
+			n("*nham nham nham*");
+			m("Então, quais são seus planos para amanhã?");
 			Start_Dinner_2_1();
 		},
-		"There's something I need to tell just you first.": function(message){
+		"Tem algo que preciso contar só para você primeiro.": function (message) {
 			n(message);
-			m("Hold on Nick, I haven't asked about your day yet!");
-			n("Today was fine.");
-			m("Okay. And what's your plans for tomorrow?");
+			m("Calma Nick, ainda não perguntei sobre seu dia!");
+			n("Hoje foi tranquilo.");
+			m("Certo. E quais são seus planos para amanhã?");
 			Start_Dinner_2_1();
-		}
+		},
 	});
-
 }
 
-function Start_Dinner_2_1(){
-
-	n("Oh. Uh... studying.")
-	n("Yeah. Tomorrow I'm studying.");
-	m("What subject?");
+function Start_Dinner_2_1() {
+	n("Ah. É... estudar.");
+	n("Sim. Amanhã vou estudar.");
+	m("Qual matéria?");
 	n("Er...");
 
 	Choose({
-		"Chemistry.": function(message){
-			$.studying_subject = "Chemistry";
+		"Química.": function (message) {
+			$.studying_subject = "Química";
 			Start_Dinner_2_2(message);
 		},
-		"Calculus.": function(message){
-			$.studying_subject = "Calculus";
+		"Cálculo.": function (message) {
+			$.studying_subject = "Cálculo";
 			Start_Dinner_2_2(message);
 		},
-		"Compsci.": function(message){
-			$.studying_subject = "Computer Science";
+		"Computação.": function (message) {
+			$.studying_subject = "Computação";
 			Start_Dinner_2_2(message);
-		}
+		},
 	});
-
 }
 
-function Start_Dinner_2_2(message){
-
+function Start_Dinner_2_2(message) {
 	n(message);
-	m("Good.");
-	m("You really, really could improve your grades in your "+$.studying_subject+" class.");
+	m("Ótimo.");
+	m(
+		"Você realmente, realmente poderia melhorar suas notas na aula de " +
+			$.studying_subject +
+			"."
+	);
 	n(". . .");
-	m("So, I'll be at the library tomorrow.");
-	m("Will I see you studying there?");
-	n("Actually, I'm gonna study at Jack's place.");
-	m("Again?");
-	m("You spend a lot of time with him.");
+	m("Então, estarei na biblioteca amanhã.");
+	m("Vou te ver estudando lá?");
+	n("Na verdade, vou estudar na casa do Jack.");
+	m("De novo?");
+	m("Você passa muito tempo com ele.");
 
 	Choose({
-		"We just study together, that's all.": function(message){
+		"A gente só estuda junto, só isso.": function (message) {
 			$.relationship = "study";
 			Buddy_1(message);
 		},
-		"Mom, Jack is... more than a friend.": function(message){
-			
+		"Mãe, o Jack é... mais que um amigo.": function (message) {
 			$.relationship = "best friend";
 			n(message);
-			
+
 			$.lying_about_hanging_out = true;
-			m("Oh, like best friends?");
-			n("Um. Well--");
-			m("So you're just hanging out, not studying.");
-			n("We ARE studying!");
+			m("Ah, tipo melhores amigos?");
+			n("Hm. Bem--");
+			m("Então vocês só estão juntos, não estudando.");
+			n("A GENTE ESTUDA SIM!");
 			m(". . .");
-			m("Alright, just don't lie to me.");
-			n("I'm not.");
+			m("Tudo bem, só não minta pra mim.");
+			n("Não estou mentindo.");
 			Buddy_1_point_5();
 		},
-		"Well yeah, that's what good pals do.": function(message){
+		"É, é isso que bons amigos fazem.": function (message) {
 			$.relationship = "friend";
 			Buddy_1(message);
-		}
+		},
 	});
-
 }
 
-
-///////////////////////////////////////
-////// 2) SUSPECTING Jack IS GAY ///////
-///////////////////////////////////////
-
-
-function Buddy_1(message){
+function Buddy_1(message) {
 	n(message);
 
-	if($.relationship!="study"){
+	if ($.relationship != "study") {
 		$.lying_about_hanging_out = true;
-		m("Oh. So you're just hanging out, not studying.");
-		n("We ARE studying!");
+		m("Ah. Então vocês só estão juntos, não estudando.");
+		n("A GENTE ESTUDA SIM!");
 		m(". . .");
-		m("Alright, just don't lie to me.");
-		n("I'm not.");
-	}else{
-		m("Okay. I'm just making sure.");
-		n("Of... what?");
+		m("Tudo bem, só não minta pra mim.");
+		n("Não estou mentindo.");
+	} else {
+		m("Ok. Só estou conferindo.");
+		n("Conferindo... o quê?");
 	}
 
 	Buddy_1_point_5();
 }
 
-function Buddy_Caught_Lying_1(message,callback){
+function Buddy_Caught_Lying_1(message, callback) {
 	n(message);
-	m("Wait...");
-	m("I thought you said you 'just study together'.");
-	m("You didn't tell me you were friends.");
+	m("Espera...");
+	m("Achei que você disse que 'só estudavam juntos'.");
+	m("Você não me contou que eram amigos.");
 	$.lying_about_relationship = true;
 	Choose({
-		"Oops, I meant he's just a studymate.": callback,
-		"Well, he can also be my friend...": callback,
-		"No, I always said we were friends.": callback
+		"Ops, quis dizer que ele é só colega de estudo.": callback,
+		"Bem, ele também pode ser meu amigo...": callback,
+		"Não, sempre disse que éramos amigos.": callback,
 	});
 }
 
-function Buddy_1_point_5(){
-
-	m("Just... don't hang around him too much.");
-	m("People might get the wrong idea.");
+function Buddy_1_point_5() {
+	m("Só... não fique muito com ele.");
+	m("As pessoas podem pensar errado.");
 
 	Choose({
-		"Oh. No, yeah, we're just friends.": function(message){
-			if($.relationship=="study" && !$.lying_about_relationship){
-				Buddy_Caught_Lying_1(message,Buddy_2);
-			}else{
+		"Ah. Não, sim, somos só amigos.": function (message) {
+			if ($.relationship == "study" && !$.lying_about_relationship) {
+				Buddy_Caught_Lying_1(message, Buddy_2);
+			} else {
 				Buddy_2(message);
 			}
 		},
-		"The wrong idea might be the right idea.": Buddy_4,
-		"What do you mean by... wrong idea?": Buddy_3
+		"A ideia errada pode ser a certa.": Buddy_4,
+		"O que você quer dizer com... ideia errada?": Buddy_3,
 	});
-
 }
 
-function Buddy_2(message){
+function Buddy_2(message) {
 	n(message);
-	m("Okay.");
-	if($.lying_about_relationship){
-		m("Just don't lie to me.");
-		n("I won't.");
+	m("Ok.");
+	if ($.lying_about_relationship) {
+		m("Só não minta pra mim.");
+		n("Não vou.");
 		m(". . .");
-		m("But... about you hanging out with Jack.");
+		m("Mas... sobre você sair com o Jack.");
 	}
-	m("It's just that some people might assume things, since...");
-	m("You know... he looks like...");
-	m("A gay?");
+	m("É só que algumas pessoas podem assumir coisas, já que...");
+	m("Você sabe... ele parece...");
+	m("Gay?");
 	Buddy_Choice();
 }
 
-function Buddy_3(message){
+function Buddy_3(message) {
 	n(message);
-	m("Just between mother and son, I think he might be... you know...");
-	n("No, what?");
-	m("A gay!");
-	m("He looks and talks like a gay.");
+	m("Só entre mãe e filho, acho que ele pode ser... sabe...");
+	n("Não, o quê?");
+	m("Gay!");
+	m("Ele parece e fala como um gay.");
 	Buddy_Choice();
 }
 
-function Buddy_4(message){
+function Buddy_4(message) {
 	n(message);
-	m("Oh, that's like a zen thing, right?");
-	n("Um.");
-	m("Zen is also about nature, and your classmate Jack, he...");
-	m("...you know, doesn't seem natural?");
+	m("Ah, isso é tipo coisa de zen, né?");
+	n("Hm.");
+	m("Zen também é sobre natureza, e seu colega Jack, ele...");
+	m("...sabe, não parece natural?");
 	Choose({
-		"You think he's gay.": function(message){
+		"Você acha que ele é gay.": function (message) {
 			n(message);
-			m("Yes!");
-			m("You suspect it, too!");
+			m("Sim!");
+			m("Você também suspeita!");
 			Buddy_Choice();
 		},
-		"Don't say that about my friend!": function(message){
-
-			if($.relationship=="study" && !$.lying_about_relationship){
-				Buddy_Caught_Lying_1(message,function(message){
-
+		"Não fale isso do meu amigo!": function (message) {
+			if ($.relationship == "study" && !$.lying_about_relationship) {
+				Buddy_Caught_Lying_1(message, function (message) {
 					n(message);
-					m("Okay.");
-					m("Just don't lie to me.");
-					n("I won't.");
+					m("Ok.");
+					m("Só não minta pra mim.");
+					n("Não vou.");
 					m(". . .");
 
-					m("But yes, even you agree that it's bad to be seen as 'not natural'.");
-					n("I never said--");
-					m("And I'm just looking out for you! Because he acts like, you know...");
-					m("A gay!");
+					m(
+						"Mas sim, até você concorda que é ruim ser visto como 'não natural'."
+					);
+					n("Eu nunca disse--");
+					m(
+						"E só estou cuidando de você! Porque ele age como, sabe..."
+					);
+					m("Gay!");
 					Buddy_Choice();
-
 				});
-			}else{
-
+			} else {
 				n(message);
-				m("I'm just being honest.");
-				m("But yes, even you agree that it's bad to be seen as 'not natural'.");
-				n("I never said--");
-				m("And I'm just looking out for you! Because he acts like, you know...");
-				m("A gay!");
+				m("Só estou sendo honesta.");
+				m("Mas sim, até você concorda que é ruim ser visto como 'não natural'.");
+				n("Eu nunca disse--");
+				m(
+					"E só estou cuidando de você! Porque ele age como, sabe..."
+				);
+				m("Gay!");
 				Buddy_Choice();
-
 			}
-
 		},
-		"What do you mean, he's not natural?": Buddy_3
+		"O que quer dizer, ele não é natural?": Buddy_3,
 	});
 }
 
-function Buddy_Choice(){
-	if($.relationship=="friend"){
-		m("And since you say he's a 'good pal'...");
-		m("People might think you're a gay like him, too.");
+function Buddy_Choice() {
+	if ($.relationship == "friend") {
+		m("E já que você diz que ele é um 'bom amigo'...");
+		m("As pessoas podem achar que você também é gay como ele.");
 	}
-	if($.relationship=="best friend"){
-		m("And since you say he's your BEST friend...");
-		m("People might think you're a gay like him, too.");
+	if ($.relationship == "best friend") {
+		m("E já que você diz que ele é seu MELHOR amigo...");
+		m("As pessoas podem achar que você também é gay como ele.");
 	}
 	Choose({
-		"Ha, he sure acts gay. Luckily, he's not.": function(message){
+		"Haha, ele até parece gay. Mas não é.": function (message) {
 			n(message);
-			m("See? You also think there's something not right about it.");
-			n("...sure.");
+			m("Viu? Você também acha que tem algo errado nisso.");
+			n("...certo.");
 			Buddy_Aftermath();
 		},
-		"What's wrong with being gay?!": function(message){
+		"Qual o problema de ser gay?!": function (message) {
 			n(message);
-			m("Nothing! Nothing.");
+			m("Nada! Nada.");
 			Buddy_Aftermath();
 		},
-		"Maybe... my friend might be gay.": function(message){
-
-			if($.relationship=="study" && !$.lying_about_relationship){
-				Buddy_Caught_Lying_1(message,function(message){
+		"Talvez... meu amigo seja gay.": function (message) {
+			if ($.relationship == "study" && !$.lying_about_relationship) {
+				Buddy_Caught_Lying_1(message, function (message) {
 					n(message);
-					m("Okay.");
-					m("Just don't lie to me.");
-					n("I won't.");
+					m("Ok.");
+					m("Só não minta pra mim.");
+					n("Não vou.");
 					m(". . .");
 					Buddy_Aftermath();
 				});
-			}else{
+			} else {
 				n(message);
 				Buddy_Aftermath();
 			}
-			
-		}
+		},
 	});
 }
 
+function Buddy_Aftermath() {
+	m("Não me entenda mal.");
+	m("Não estou dizendo que esse tipo de pessoa é ruim!");
+	m("Só acho que... você deve tomar cuidado perto de um deles.");
+	m("O Jack pode, sabe, tentar te recrutar.");
 
-function Buddy_Aftermath(){
-
-	m("Don't get me wrong.");
-	m("I'm not saying those kind of people are bad!");
-	m("I just think... you should be careful around one of them.");
-	m("Jack might, you know, try to recruit you.");
-
-	Show("clock_time","clock_1910");
-	Show("nicky","dinner_nicky_defiant");
+	Show("clock_time", "clock_1910");
+	Show("nicky", "dinner_nicky_defiant");
 
 	Choose({
-		"what.": Buddy_Aftermath_2,
-		"whaaat.": Buddy_Aftermath_2,
-		"whaaaaaaaaaaaaaaat.": Buddy_Aftermath_2
+		"o quê.": Buddy_Aftermath_2,
+		"quêêê.": Buddy_Aftermath_2,
+		"quuuuuuuuuuuuuê.": Buddy_Aftermath_2,
 	});
 }
 
-function Buddy_Aftermath_2(message){
-	
+function Buddy_Aftermath_2(message) {
 	n(message);
 
-	n("How do you even...");
-	n("Ugh, nevermind.");
-	m("Nick, I'm sorry you find me annoying.");
-	n("No, mom, stop doing th--");
-	m("Let's go back to talking about your grades.");
-	m("Now, what did you say you were studying tomorrow?");
+	n("Como você sequer...");
+	n("Aff, deixa pra lá.");
+	m("Nick, desculpa se te irrito.");
+	n("Não, mãe, para com is--");
+	m("Vamos voltar a falar das suas notas.");
+	m("Agora, o que você disse que ia estudar amanhã?");
 
-	Show("nicky","dinner_nicky_sit");
+	Show("nicky", "dinner_nicky_sit");
 	n(". . .");
 	n("Errrmmmmm...");
 
 	Choose({
-		"Compsci?": function(message){
-			$.studying_subject_2 = "Computer Science";
+		"Computação?": function (message) {
+			$.studying_subject_2 = "Computação";
 			Grades_Start(message);
 		},
-		"Chemistry?": function(message){
-			$.studying_subject_2 = "Chemistry";
+		"Química?": function (message) {
+			$.studying_subject_2 = "Química";
 			Grades_Start(message);
 		},
-		"Calculus?": function(message){
-			$.studying_subject_2 = "Calculus";
+		"Cálculo?": function (message) {
+			$.studying_subject_2 = "Cálculo";
 			Grades_Start(message);
-		}
+		},
 	});
-
 }
 
-
-//////////////////////////////////////////
-////// 3) A POSSIBLE PRIVATE TUTOR ///////
-//////////////////////////////////////////
-
-function Grades_Start(message){
+function Grades_Start(message) {
 	n(message);
 	m(". . .");
-	if($.studying_subject!=$.studying_subject_2){
+	if ($.studying_subject != $.studying_subject_2) {
 		Grades_Start_1();
-	}else{
+	} else {
 		Grades_Start_2();
 	}
 }
 
-function Grades_Start_1(){
-	m("You first told me it was "+$.studying_subject+".");
-	m("Now you tell me it's "+$.studying_subject_2+"?");
+function Grades_Start_1() {
+	m("Você primeiro me disse que era " + $.studying_subject + ".");
+	m("Agora diz que é " + $.studying_subject_2 + "?");
 	$.lying_about_studying = true;
-	n("Mom, I was just confus--");
-	if($.lying_about_hanging_out || $.lying_about_relationship){
-		m("This is TWICE you've lied to me during this dinner.");
-		n("I didn't lie about--");
+	n("Mãe, eu só me confun--");
+	if ($.lying_about_hanging_out || $.lying_about_relationship) {
+		m("É a SEGUNDA vez que você mente pra mim nesse jantar.");
+		n("Eu não menti sobre--");
 	}
-	m("Either way, your grades in both subjects are terrible.");
+	m("De qualquer forma, suas notas nas duas matérias estão péssimas.");
 	n(". . .");
 	Grades_Explaining();
 }
 
-function Grades_Start_2(){
-	m("You hesitated for a moment there.");
-	n("I was eating.");
-	m("Okay.");
-	if($.lying_about_hanging_out){
-		m("I wonder if you're studying with Jack at all, or just always hanging out.");
-		n("We study.");
+function Grades_Start_2() {
+	m("Você hesitou por um momento.");
+	n("Eu estava comendo.");
+	m("Ok.");
+	if ($.lying_about_hanging_out) {
+		m(
+			"Fico pensando se você realmente estuda com o Jack ou só fica com ele."
+		);
+		n("A gente estuda.");
 	}
 	m(". . .");
-	m("Still, your grades in your "+$.studying_subject_2+" class are terrible.");
+	m(
+		"Mesmo assim, suas notas em " +
+			$.studying_subject_2 +
+			" estão péssimas."
+	);
 	n(". . .");
 	Grades_Explaining();
 }
 
-function Grades_Explaining(){
+function Grades_Explaining() {
 	Start_Dinner_3();
 }

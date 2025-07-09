@@ -1,6 +1,6 @@
 function Start_Dinner_1(){
 
-	/////// SET UP SCENE ////////
+	/////// CONFIGURAR CENA ////////
 
 	Show("background","dinner");
 	Show("clock","clock_ticking",{x:155,y:294});
@@ -15,13 +15,13 @@ function Start_Dinner_1(){
 	////////////////////////////
 
 	Wait(2500);
-	n("Where is everyone?...");
+	n("Onde está todo mundo?...");
 	n(". . .");
 
 	Choose({
-		"Moooom?": Waiting_1,
-		"Daaaaad?": Waiting_1,
-		"Hello, anybody?": Waiting_1
+		"Mãããe?": Waiting_1,
+		"Paaai?": Waiting_1,
+		"Olá, alguém aí?": Waiting_1
 	});
 
 }
@@ -34,15 +34,15 @@ function Waiting_1(message){
 	n(". . .");
 
 	Choose({
-		"[start eating]": function(message){
+		"[começar a comer]": function(message){
 			$.waiting_action = "eat";
 			Waiting_2(message);
 		},
-		"[wait some more]": function(message){
+		"[esperar mais um pouco]": function(message){
 			$.waiting_action = "wait";
 			Waiting_2(message);
 		},
-		"[play with food]": function(message){
+		"[brincar com a comida]": function(message){
 			$.waiting_action = "play";
 			Waiting_2(message);
 		}
@@ -64,7 +64,7 @@ function Waiting_2(message){
 	Show("nicky","dinner_nicky_defiant");
 
 	Choose({
-		"Cut the crying, cacophonous cat clock!": function(message){
+		"Corta o choro, relógio de gato barulhento!": function(message){
 			n(message);
 
 			Show("mom","mom_stand");
@@ -72,47 +72,47 @@ function Waiting_2(message){
 			PlaySound("clock","dinner_ticking",{loop:-1});
 
 			if($.im_a_poet){
-				m("Did you learn poetry from a friend?");
+				m("Você aprendeu poesia com um amigo?");
 			}else{
-				m("Poetic.");
+				m("Poético.");
 			}
 
 			Show("nicky","dinner_nicky_sit");
-			n("Oh, hey mom.");
+			n("Ah, oi mãe.");
 			
 			Waiting_End();
 		},
-		"Ugh, why did we get that thing?": function(message){
+		"Aff, por que compramos essa coisa?": function(message){
 			n(message);
 
 			Show("mom","mom_stand");
 			Show("clock","clock_ticking");
 			PlaySound("clock","dinner_ticking",{loop:-1});
 
-			m("Your grandfather gave it to us.");
+			m("Seu avô nos deu.");
 
 			Show("nicky","dinner_nicky_sit");
-			n("Oh! Hey mom.");
+			n("Ah! Oi mãe.");
 			
 			Waiting_End();
 		},
-		"Meow! Meow! Meow! Meow!": function(message){
+		"Miau! Miau! Miau! Miau!": function(message){
 			
-			n("Meow.");
-			n("Meow!");
+			n("Miau.");
+			n("Miau!");
 
 			Show("nicky","dinner_nicky_outrage");
-			n("MEOW!");
+			n("MIAU!");
 
 			Show("mom","mom_stand");
 
-			m("Nick, what are you doing?...");
+			m("Nick, o que você está fazendo?...");
 
 			Show("clock","clock_ticking");
 			PlaySound("clock","dinner_ticking",{loop:-1});
 			Show("nicky","dinner_nicky_sit");
 
-			n("MEOOOhhhh didn't see you. Ahem. Hey mom.");
+			n("MIAUUUhh não te vi aí. Ahem. Oi mãe.");
 
 			Waiting_End();
 		}
